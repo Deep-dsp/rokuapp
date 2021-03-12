@@ -3,7 +3,7 @@ const sqlCreds = {
     password:"",
     host: "localhost",
     port:3306,
-    database:"roku_streaming"
+    database:"db_movies"
 }
 
 module.exports = sqlCreds;
