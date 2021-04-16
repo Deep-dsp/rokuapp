@@ -20,11 +20,11 @@ router.get("/users", (req, res)=>{
 router.get("/movies", (req, res)=>{
     // run sql query here
 
-    connect.getConnection(function(err, connection) {
+    connect.getConnection(function(err, connection){
         if (err) throw err; // not connected!
         
         // Use the connection
-        connection.query('SELECT * FROM tbl_movies', function (error, results) {
+        connection.query('SELECT * FROM retro_movies WHERE restrict_flag ="1"', function (error, results) {
             // When done with the connection, release it.
             connection.release();
         
@@ -56,13 +56,34 @@ router.get("/movies/:id", (req, res)=>{
     });
 });
 
+// Show time
+router.get("/shows", (req, res)=>{
+    // run sql query here
+
+    connect.getConnection(function(err, connection){
+        if (err) throw err; // not connected!
+        
+        // Use the connection
+        connection.query('SELECT * FROM retro_shows WHERE restrict_flag ="1"', function (error, results) {
+            // When done with the connection, release it.
+            connection.release();
+        
+            // Handle error after the release.
+            if (error) throw error;
+
+            res.json(results);
+        });
+    });
+    //res.json( query result here )
+});
+
 router.get("/music", (req, res)=>{
     // run sql query here
     connect.getConnection(function(err, connection) {
         if (err) throw err; // not connected!
         
         // Use the connection
-        connection.query(`SELECT * FROM tbl_music`, function (error, results) {
+        connection.query(`SELECT * FROM tbl_music WHERE restrict_flag='1'`, function (error, results) {
             // When done with the connection, release it.
             connection.release();
         
